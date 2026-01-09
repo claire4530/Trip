@@ -144,19 +144,19 @@ export default function TripDashboard() {
             {/* Content Area */}
             <div className="flex-1">
               <TabsContent value="itinerary" className="m-0 h-full animate-fade-in">
-                {/* 我們的行程表元件 */}
+                {/* 行程表元件 */}
                 <div className="p-0">
                   <ItineraryPlanner trip={trip} />
                 </div>
               </TabsContent>
 
               <TabsContent value="budget" className="m-0 h-full p-4 md:p-8 animate-fade-in bg-gray-50/30">
-                {/* 直接使用分帳元件 */}
+                {/* 分帳元件 */}
                 <BudgetTracker trip={trip} />
               </TabsContent>
 
               <TabsContent value="members" className="m-0 p-8 animate-fade-in">
-                {/* 直接使用我們的新元件 */}
+                {/* 旅行夥伴元件 */}
                 <TripMembers trip={trip} />
               </TabsContent>
               <TabsContent value="packing" className="m-0 h-full animate-fade-in">

@@ -21,7 +21,6 @@ interface Props {
 
 // 定義更精確的型別，容許 profile 為 null
 interface Member {
-  id: string
   role: string
   user_id: string
   profiles: {
@@ -51,15 +50,17 @@ export default function TripMembers({ trip }: Props) {
       // 2. 取得成員列表
       const { data, error } = await supabase
         .from('trip_members')
-        .select(`
-          id, role, user_id,
-          profiles ( email, username, avatar_url )
-        `)
+          .select(`
+            role, user_id,
+            profiles:profiles!trip_members_user_id_fkey ( email, username, avatar_url )
+          `)
         .eq('trip_id', trip.id)
       
-      if (error) {
-        console.error('Error fetching members:', error)
-      }
+        // 在 TripMembers.tsx 的 useEffect 裡面
+        if (error) {
+          // 關鍵：使用 JSON.stringify 才能把 {} 裡面的秘密印出來
+          console.error('🔥 真實錯誤訊息:', JSON.stringify(error, null, 2))
+        }
 
       if (data) {
         // 這裡不需要 as any，因為我們上面定義了容許 null
@@ -104,7 +105,7 @@ export default function TripMembers({ trip }: Props) {
           }
 
           return (
-            <div key={member.id} className="flex items-center gap-4 p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all">
+            <div key={member.user_id} className="flex items-center gap-4 p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all">
               <Avatar className="w-12 h-12 border-2 border-white shadow-sm">
                 <AvatarImage src={profile.avatar_url} />
                 <AvatarFallback className="bg-gray-100 text-gray-600 font-bold">

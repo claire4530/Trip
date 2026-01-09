@@ -51,7 +51,7 @@ export default function AuthForm() {
         if (error) throw error
       }
 
-      router.push('/trips/new')
+      router.push('/dashboard')
       router.refresh()
 
     } catch (error: any) {

@@ -44,6 +44,9 @@ export interface ItineraryItem {
   transport_time?: number;     // 交通時間 (分)
   transport_cost?: number;     // 交通費
   activity_cost?: number;      // 活動費
+  location?: string;          // 地點
+  duration?: number;          // 活動時間 (分)
+  actual_cost?: number;       // 實際花費
   
   weather_condition?: string;  // 天氣
   outfit_suggestion?: string;  // 穿搭
